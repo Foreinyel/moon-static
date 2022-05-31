@@ -10,7 +10,11 @@
     "eggPlugin",
     "egg-plugin"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "@hemyn/utils-node": "^0.2.4",
+    "mime-types": "^2.1.35",
+    "standard-version": "^9.5.0"
+  },
   "devDependencies": {
     "autod": "^3.0.1",
     "autod-egg": "^1.1.0",

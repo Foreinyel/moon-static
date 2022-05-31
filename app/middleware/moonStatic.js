@@ -19,11 +19,6 @@ module.exports = function (options, app) {
   });
 
   return async (ctx, next) => {
-    console.log(
-      `🚀 ~ file: moonStatic.js ~ line 27 ~ return ~ ctx.path`,
-      ctx.path
-    );
-
     if (!["HEAD", "GET"].includes(ctx.method)) {
       return await next();
     }
