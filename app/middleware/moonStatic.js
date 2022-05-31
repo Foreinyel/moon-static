@@ -5,9 +5,10 @@ const fsp = require("fs/promises");
 const crypto = require("crypto");
 const mime = require("mime-types");
 const assert = require("assert");
-
+const { Readable } = require("stream");
 const hm = require("@hemyn/utils-node");
-
+const { createGzip } = require("zlib");
+const compressible = require("compressible");
 const PUBLIC_PREFIX = "public";
 
 module.exports = function (options, app) {
@@ -35,9 +36,27 @@ module.exports = function (options, app) {
       ctx.res.writeHead(304);
       return;
     }
+
+    const acceptGzip = ctx.acceptsEncodings("gzip") === "gzip";
+    if (acceptGzip && compressible(fileInfo.type)) {
+      ctx.remove("content-length");
+      ctx.res.writeHead(200, {
+        "Access-Control-Allow-Origin": "*",
+        "Content-Encoding": "gzip",
+        "Cache-Control": "max-age=0",
+        ETag: fileInfo.md5,
+      });
+      const stream = Readable.from(fileInfo.buffer.toString());
+      stream.pipe(createGzip()).pipe(ctx.res);
+      return;
+    }
+
+    ctx.type = fileInfo.type;
+    ctx.length = fileInfo.length;
+    ctx.body = fileInfo.buffer;
+
     ctx.res.writeHead(200, {
       "Access-Control-Allow-Origin": "*",
-      "Content-Encoding": "gzip",
       "Cache-Control": "max-age=0",
       ETag: fileInfo.md5,
     });

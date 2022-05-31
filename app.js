@@ -2,8 +2,8 @@
 
 module.exports = (app) => {
   const index = app.config.coreMiddleware.indexOf("bodyParser");
-  const staticIndex = app.config.coreMiddle.indexOf("static");
-  if (staticIndex) {
+  const staticIndex = app.config.coreMiddleware.indexOf("static");
+  if (staticIndex !== -1) {
     app.config.coreMiddleware.splice(staticIndex, 1, "moonStatic");
   } else {
     if (index === -1) {
