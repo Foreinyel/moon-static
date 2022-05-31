@@ -1,6 +1,6 @@
 {
   "name": "@hemyn/moon-static",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "eggPlugin": {
     "name": "moonStatic"
@@ -12,6 +12,7 @@
   ],
   "dependencies": {
     "@hemyn/utils-node": "^0.2.4",
+    "compressible": "^2.0.18",
     "mime-types": "^2.1.35",
     "standard-version": "^9.5.0"
   },
@@ -35,7 +36,8 @@
     "lint": "eslint .",
     "ci": "egg-bin pkgfiles --check && npm run lint && npm run cov",
     "pkgfiles": "egg-bin pkgfiles",
-    "autod": "autod"
+    "autod": "autod",
+    "release": "standard-version"
   },
   "files": [
     "app.js",
