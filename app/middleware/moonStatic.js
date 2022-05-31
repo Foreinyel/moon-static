@@ -46,8 +46,9 @@ module.exports = function (options, app) {
         "Cache-Control": "max-age=0",
         ETag: fileInfo.md5,
       });
-      const stream = Readable.from(fileInfo.buffer.toString());
-      stream.pipe(createGzip()).pipe(ctx.res);
+      const stream = Readable.from(fileInfo.buffer);
+
+      ctx.body = stream.pipe(createGzip());
       return;
     }
 
