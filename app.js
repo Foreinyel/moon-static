@@ -16,7 +16,9 @@ module.exports = (app) => {
     }
   }
   const publicPath = path.resolve(app.baseDir, app.config.moonStatic.publicDir);
-  const fileManager = new FileManager({ dir: publicPath });
+  const FileManagerClass =
+    app.config.moonStatic.FileManagerClass || FileManager;
+  const fileManager = new FileManagerClass({ dir: publicPath, app });
   app.fileManager = fileManager;
 
   app.beforeStart(async () => {
