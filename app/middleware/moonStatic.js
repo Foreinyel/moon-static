@@ -16,7 +16,7 @@ module.exports = function (options, app) {
       return await next();
     }
     const filepath = path.normalize(safeDecodeURIComponent(ctx.path));
-    const fileInfo = fileManager.get(filepath);
+    const fileInfo = await fileManager.get(filepath, { ctx });
     if (!fileInfo) {
       return await next();
     }
