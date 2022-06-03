@@ -1,6 +1,6 @@
 {
   "name": "@hemyn/moon-static",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "",
   "eggPlugin": {
     "name": "moonStatic"
